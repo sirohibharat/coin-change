@@ -1,34 +1,44 @@
-#include <iostream>
-using namespace std;
-
-struct TreeNode {
+class TreeNode {
     int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
-int height(TreeNode* root, int& diameter) {
-    if (root == NULL) return 0;
-    int leftHeight = height(root->left, diameter);
-    int rightHeight = height(root->right, diameter);
-    diameter = max(diameter, leftHeight + rightHeight);
-    return 1 + max(leftHeight, rightHeight);
+    TreeNode left;
+    TreeNode right;
+    
+    TreeNode(int x) {
+        val = x;
+        left = null;
+        right = null;
+    }
 }
 
-int diameterOfBinaryTree(TreeNode* root) {
-    int diameter = 0;
-    height(root, diameter);
-    return diameter;
-}
-
-int main() {
-    TreeNode* root = new TreeNode(1);
-    root->left = new TreeNode(2);
-    root->right = new TreeNode(3);
-    root->left->left = new TreeNode(4);
-    root->left->right = new TreeNode(5);
-
-    cout << "Diameter of the tree: " << diameterOfBinaryTree(root) << endl;
-    return 0;
+public class BinaryTreeDiameter {
+    private int diameter = 0;
+    
+    private int height(TreeNode root) {
+        if (root == null) return 0;
+        
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+        
+        diameter = Math.max(diameter, leftHeight + rightHeight);
+        
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
+    
+    public int diameterOfBinaryTree(TreeNode root) {
+        diameter = 0; // Reset diameter for each call
+        height(root);
+        return diameter;
+    }
+    
+    public static void main(String[] args) {
+        BinaryTreeDiameter solution = new BinaryTreeDiameter();
+        
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        
+        System.out.println("Diameter of the tree: " + solution.diameterOfBinaryTree(root));
+    }
 }
